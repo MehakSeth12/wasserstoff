@@ -31,19 +31,19 @@ export default function Sidebar() {
         <aside className="w-64 bg-gray-800 text-white p-4">
             <nav>
                 <ul>
+                    <li className="mb-4 ">List of Files</li>
                     {fileStructure && fileStructure.length > 0 && fileStructure.map((item: any, index) => {
                         return (
                             <li
                                 key={"side_" + index}
-                                className="mb-4 cursor-pointer"
+                                className="pl-2 mb-4 cursor-pointer"
                                 onClick={() => handleFileClick(item.name)}
                             >
-                                {item.name} {item.type}
+                                {item.name}
                             </li>
                         );
                     })}
-                    <li className="mb-4">About</li>
-                    <li className="mb-4">Services</li>
+                    
                 </ul>
             </nav>
         </aside>
