@@ -10,6 +10,7 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import NoteEditor from '../../components/NoteEditor';
 import ListEditor from '../../components/ListEditor';
 import ReadmeViewer from '../../components/ReadmeViewer';
+import TextEditor from '../../components/TextEditor'; // Import the TextEditor component
 
 export default function Dashboard() {
     const selectedFile = useSelector((state: RootState) => state.selectedFile.selectedFile);
@@ -80,6 +81,8 @@ export default function Dashboard() {
                 <ListEditor content={fileContent} onChange={handleOnChange} />
             ) : selectedFile?.endsWith('.readme') ? (
                 <ReadmeViewer content={fileContent} />
+            ) : selectedFile?.endsWith('.txt') ? (
+                <TextEditor content={fileContent} onChange={handleOnChange} />
             ) : null}
         </div>
     );

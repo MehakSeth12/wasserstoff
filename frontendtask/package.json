@@ -11,6 +11,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
     "ace-builds": "^1.35.0",
+    "markdown-to-jsx": "^7.4.7",
     "next": "14.2.4",
     "react": "^18",
     "react-ace": "^11.0.1",

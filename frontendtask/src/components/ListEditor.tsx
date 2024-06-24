@@ -1,5 +1,6 @@
+// src/components/ListEditor.tsx
 import React, { useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
 interface ListItem {
     id: string;
@@ -13,12 +14,13 @@ interface ListEditorProps {
 
 const ListEditor: React.FC<ListEditorProps> = ({ content, onChange }) => {
     const initialItems: ListItem[] = content.split('\n').map((item, index) => ({
-        id: index.toString(),
-        content: item.trim()  // Trim to remove extra whitespace
+        id: `item-${index}`,
+        content: item.trim(), // Trim to remove extra whitespace
     }));
-    const [items, setItems] = useState(initialItems);
 
-    const handleDragEnd = (result: any) => {
+    const [items, setItems] = useState<ListItem[]>(initialItems);
+
+    const handleDragEnd = (result: DropResult) => {
         if (!result.destination) return;
         const newItems = Array.from(items);
         const [reorderedItem] = newItems.splice(result.source.index, 1);
@@ -37,7 +39,7 @@ const ListEditor: React.FC<ListEditorProps> = ({ content, onChange }) => {
         <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="droppable">
                 {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                    <div {...provided.droppableProps} ref={provided.innerRef} className="bg-gray-100 p-4 rounded">
                         {items.map((item, index) => (
                             <Draggable key={item.id} draggableId={item.id} index={index}>
                                 {(provided) => (
@@ -45,14 +47,17 @@ const ListEditor: React.FC<ListEditorProps> = ({ content, onChange }) => {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
-                                        className="p-2 mb-2 border rounded bg-white"
+                                        className="p-2 mb-2 border rounded bg-white flex items-center justify-between"
                                     >
                                         <input
                                             type="text"
                                             value={item.content}
                                             onChange={(e) => handleInputChange(index, e.target.value)}
-                                            className="w-full border-none outline-none"
+                                            className="flex-grow p-2 border rounded"
                                         />
+                                        <span {...provided.dragHandleProps} className="ml-2 cursor-move">
+                                            &#x2630; {/* Unicode for drag handle */}
+                                        </span>
                                     </div>
                                 )}
                             </Draggable>
