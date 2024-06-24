@@ -1,4 +1,5 @@
 // src/components/NewFileModal.tsx
+"use client"
 import { useState } from "react";
 
 interface NewFileModalProps {

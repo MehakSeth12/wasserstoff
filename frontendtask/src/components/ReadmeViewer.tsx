@@ -1,4 +1,5 @@
 // src/components/ReadmeViewer.tsx
+"use client"
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
